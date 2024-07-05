@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Personality Quiz</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        .question {
+            margin-bottom: 20px;
+        }
+        .question h3 {
+            margin-bottom: 10px;
+        }
+        .choices label {
+            display: block;
+        }
+        #result {
+            margin-top: 20px;
+            font-weight: bold;
+        }
+    </style>
+    <script>
+        const quiz = [
+            {
+                question: "How do you usually feel at the end of a busy day?",
+                choices: ["Exhausted", "Accomplished", "Stressed", "Content"]
+            },
+            {
+                question: "What emotion best describes how you feel when you achieve a goal?",
+                choices: ["Proud", "Relieved", "Excited", "Neautral"]
+            },
+            {
+                question: "When you think about the future, which feeling is most prominent?",
+                choices: ["Hopeful", "Worried", "Excited", "Uncertain"]
+            },
+            {
+                question: "Which of these activities best helps you manage stress?" ,
+                choices: ["Exercising", "Talking To a Friend", "Meditating", "Watching a Movie"]
+            },
+            {
+                question: "How do you typically react when faced with a difficult situation?",
+                choices: ["Anxious", "Determined", "Overwhelmed", "Calm"]
+            }
+        ];
+
+        // Random phrases for each outcome
+        const phrases = {
+            beach: [
+                "Regularly take time to reflect on how you're feeling and why. This helps you understand your emotional triggers.",
+                "Write about your daily experiences and emotions. This can help you identify patterns in your feelings and reactions."
+            ],
+            mountain: [
+                "Ask trusted friends or colleagues for honest feedback about your emotional responses and behavior.",
+                "Engage in mindfulness practices such as meditation, deep breathing, or yoga to stay calm and centered."
+            ],
+            city: [
+                "When you feel a strong emotion, take a moment to breathe and think before responding. This can prevent impulsive reactions.",
+                " Find constructive ways to deal with stress and negative emotions, such as exercising, reading, or engaging in hobbies."
+            ],
+            cultural: [
+                "Establish clear, achievable goals that align with your values and passions. This can keep you motivated and focused.",
+                "Acknowledge and reward yourself for small accomplishments along the way to maintain motivation."
+            ],
+            default: [
+                "Cultivate a positive outlook by focusing on the good aspects of situations and practicing gratitude.",
+                "Practice active listening by giving full attention to the speaker, acknowledging their feelings, and responding thoughtfully."
+            ]
+        };
+
+        function displayQuiz() {
+            const quizContainer = document.getElementById('quiz');
+            quiz.forEach((q, index) => {
+                const questionDiv = document.createElement('div');
+                questionDiv.classList.add('question');
+
+                const questionTitle = document.createElement('h3');
+                questionTitle.textContent = (index + 1) + ". " + q.question;
+                questionDiv.appendChild(questionTitle);
+
+                const choicesDiv = document.createElement('div');
+                choicesDiv.classList.add('choices');
+
+                q.choices.forEach(choice => {
+                    const label = document.createElement('label');
+                    const input = document.createElement('input');
+                    input.type = 'radio';
+                    input.name = 'question' + index;
+                    input.value = choice;
+                    label.appendChild(input);
+                    label.appendChild(document.createTextNode(choice));
+                    choicesDiv.appendChild(label);
+                });
+
+                questionDiv.appendChild(choicesDiv);
+                quizContainer.appendChild(questionDiv);
+            });
+        }
+
+        function checkAnswers() {
+            // Retrieve user's selected answers
+            const answers = [];
+            quiz.forEach((q, index) => {
+                const selectedOption = document.querySelector('input[name="question' + index + '"]:checked');
+                if (selectedOption) {
+                    answers.push(selectedOption.value);
+                }
+            });
+
+            // Determine outcome based on answers
+            let outcome = 'default'; // Default outcome
+            if (answers.length > 0) {
+                // Customize outcome based on selected answers
+                // Example logic: You can define your own rules based on user responses
+                if (answers[0] === "Exhausted" &&
+                    answers[1] === "Proud" &&
+                    answers[2] === "Anxious" &&
+                    answers[3] === "Exercising" &&
+                    answers[4] === "Hopeful") {
+                    outcome = 'beach';
+                } else if (answers[0] === "Accomplished" &&
+                    answers[1] === "Releived" &&
+                    answers[2] === "Determined" &&
+                    answers[3] === "Talking To a Friend" &&
+                    answers[4] === "Worried") {
+                    outcome = 'mountain';
+                } else if (answers[0] === "Stressed" &&
+                    answers[1] === "Excited" &&
+                    answers[2] === "Overwhelmed" &&
+                    answers[3] === "Meditating" &&
+                    answers[4] === "Excited") {
+                    outcome = 'city';
+                } else if (answers[0] === "Content" &&
+                    answers[1] === "Neatraul" &&
+                    answers[2] === "Calm" &&
+                    answers[3] === "Watching a Movie" &&
+                    answers[4] === "Uncertain") {
+                    outcome = 'cultural';
+                }
+            }
+
+            // Redirect to result page with outcome as query parameter
+            window.location.href = 'result.html?outcome=' + outcome;
+        }
+
+        window.onload = displayQuiz;
+    </script>
+</head>
+<body>
+    <h1>Personality Quiz</h1>
+    <div id="quiz"></div>
+    <button onclick="checkAnswers()">Submit Answers</button>
+</body>
+</html>
+<a href="index.html" class="nav-link">Back to Main Page</a>

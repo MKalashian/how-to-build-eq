@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Quiz Result</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 20px;
+        }
+        .phrase {
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+        .link-back {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+        .link-back:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="phrase" id="phrase">
+        <!-- Random phrase will be displayed here -->
+    </div>
+    <a href="updatedquiz.html" class="link-back">Back to Quiz</a>
+
+    <script>
+        const phrases = {
+            beach: [
+                "Regularly take time to reflect on how you're feeling and why. This helps you understand your emotional triggers.",
+                "Write about your daily experiences and emotions. This can help you identify patterns in your feelings and reactions."
+            ],
+            mountain: [
+                "Ask trusted friends or colleagues for honest feedback about your emotional responses and behavior.",
+                "Engage in mindfulness practices such as meditation, deep breathing, or yoga to stay calm and centered."
+            ],
+            city: [
+                "When you feel a strong emotion, take a moment to breathe and think before responding. This can prevent impulsive reactions.",
+                " Find constructive ways to deal with stress and negative emotions, such as exercising, reading, or engaging in hobbies."
+            ],
+            cultural: [
+                "Establish clear, achievable goals that align with your values and passions. This can keep you motivated and focused.",
+                "Acknowledge and reward yourself for small accomplishments along the way to maintain motivation."
+            ],
+            default: [
+                "Cultivate a positive outlook by focusing on the good aspects of situations and practicing gratitude.",
+                "Practice active listening by giving full attention to the speaker, acknowledging their feelings, and responding thoughtfully."
+            ]
+        };
+
+        // Function to get a random phrase from an array
+        function getRandomPhrase(arr) {
+            return arr[Math.floor(Math.random() * arr.length)];
+        }
+
+        // Get the outcome from query parameter
+        const urlParams = new URLSearchParams(window.location.search);
+        const outcome = urlParams.get('outcome') || 'default';
+
+        // Display a random phrase based on the outcome
+        const phraseContainer = document.getElementById('phrase');
+        phraseContainer.textContent = getRandomPhrase(phrases[outcome]);
+    </script>
+</body>
+</html>
+<a href="index.html" class="nav-link">Back to Main Page</a>
