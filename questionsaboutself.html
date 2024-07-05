@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Multiple Choice Quiz</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        .question {
+            margin-bottom: 20px;
+        }
+        .question h3 {
+            margin-bottom: 10px;
+        }
+        .choices label {
+            display: block;
+        }
+        #result {
+            margin-top: 20px;
+            font-weight: bold;
+        }
+    </style>
+    <script>
+        const quiz = [
+            {
+                question: "How do you usually feel at the end of a busy day?",
+                choices: ["Exhausted", "Accomplished", "Stressed", "Content"],
+                answer: ""
+            },
+            {
+                question: "What emotion best describes how you feel when you achieve a goal?",
+                choices: ["Proud", "Relieved", "Excited", "Neautral"],
+                answer: ""
+            },
+            {
+                question: "How do you typically react when faced with a difficult situation?",
+                choices: ["Anxious", "Determined", "Overwhelmed", "Calm"],
+                answer: ""
+            },
+            {
+                question: "Which of these activities best helps you manage stress?",
+                choices: ["Exercising", "Talking To a Friend", "Meditating", "Watching a Movie"],
+                answer: ""
+            },
+            {
+                question: "When you think about the future, which feeling is most prominent?",
+                choices: ["Hopeful", "Worried", "Excited", "Uncertain"],
+                answer: ""
+            }
+        ];
+
+        function displayQuiz() {
+            const quizContainer = document.getElementById('quiz');
+            quiz.forEach((q, index) => {
+                const questionDiv = document.createElement('div');
+                questionDiv.classList.add('question');
+
+                const questionTitle = document.createElement('h3');
+                questionTitle.textContent = (index + 1) + ". " + q.question;
+                questionDiv.appendChild(questionTitle);
+
+                const choicesDiv = document.createElement('div');
+                choicesDiv.classList.add('choices');
+
+                q.choices.forEach(choice => {
+                    const label = document.createElement('label');
+                    const input = document.createElement('input');
+                    input.type = 'radio';
+                    input.name = 'question' + index;
+                    input.value = choice;
+                    label.appendChild(input);
+                    label.appendChild(document.createTextNode(choice));
+                    choicesDiv.appendChild(label);
+                });
+
+                questionDiv.appendChild(choicesDiv);
+                quizContainer.appendChild(questionDiv);
+            });
+        }
+
+        function checkAnswers() {
+            let score = 0;
+            quiz.forEach((q, index) => {
+                const selectedOption = document.querySelector('input[name="question' + index + '"]:checked');
+                if (selectedOption && selectedOption.value === q.answer) {
+                    score++;
+                }
+            });
+            const resultDiv = document.getElementById('result');
+            resultDiv.textContent = "You got " + score + " out of " + quiz.length + " correct!";
+        }
+
+        window.onload = displayQuiz;
+    </script>
+</head>
+<body>
+    <h1>Multiple Choice Quiz</h1>
+    <div id="quiz"></div>
+    <button onclick="checkAnswers()">Submit Answers</button>
+    <div id="result"></div>
+</body>
+</html>
+<a href="index.html" class="nav-link">Back to Main Page</a>

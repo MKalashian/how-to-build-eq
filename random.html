@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>How to Build EQ</title>
+    <script>
+        function getRandomPhrases() {
+            const phrases = [
+                "Regularly take time to reflect on how you're feeling and why. This helps you understand your emotional triggers.",
+                "Write about your daily experiences and emotions. This can help you identify patterns in your feelings and reactions.",
+                "Ask trusted friends or colleagues for honest feedback about your emotional responses and behavior.",
+                "Engage in mindfulness practices such as meditation, deep breathing, or yoga to stay calm and centered.",
+                "When you feel a strong emotion, take a moment to breathe and think before responding. This can prevent impulsive reactions.",
+                "Find constructive ways to deal with stress and negative emotions, such as exercising, reading, or engaging in hobbies.",
+                "Establish clear, achievable goals that align with your values and passions. This can keep you motivated and focused.",
+                "Acknowledge and reward yourself for small accomplishments along the way to maintain motivation.",
+                "Cultivate a positive outlook by focusing on the good aspects of situations and practicing gratitude.",
+                "Practice active listening by giving full attention to the speaker, acknowledging their feelings, and responding thoughtfully."
+            ];
+
+            const selectedPhrases = [];
+            while (selectedPhrases.length < 5) {
+                const randomIndex = Math.floor(Math.random() * phrases.length);
+                const randomPhrase = phrases[randomIndex];
+                if (!selectedPhrases.includes(randomPhrase)) {
+                    selectedPhrases.push(randomPhrase);
+                }
+            }
+
+            return selectedPhrases;
+        }
+
+        function displayPhrases() {
+            const phrases = getRandomPhrases();
+            const phrasesList = document.getElementById("phrasesList");
+            phrasesList.innerHTML = "";
+
+            phrases.forEach(phrase => {
+                const listItem = document.createElement("li");
+                listItem.textContent = phrase;
+                phrasesList.appendChild(listItem);
+            });
+        }
+
+        window.onload = displayPhrases;
+    </script>
+</head>
+<body>
+    <h1>How to Build EQ</h1>
+    <ul id="phrasesList"></ul>
+    <button onclick="displayPhrases()">Give More Tips</button>
+</body>
+</html>
+<a href="index.html" class="nav-link">Back to Main Page</a>
